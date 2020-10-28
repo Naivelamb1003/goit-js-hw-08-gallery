@@ -15,7 +15,7 @@ lighboxOverlay.addEventListener('click', onCloseButtonClick);
 
 
 function createImageCardsMarkup(cards) {
-    return cards
+    return cards 
     .map(({ preview, original, description }) => {
         return `
      <li class="gallery__item">
@@ -53,8 +53,47 @@ function onCloseButtonClick() {
 function onKeypress(evt) {
     evt.preventDefault();
     if (evt.code === 'Escape') {
-        onCloseButtonClick();
-    }
-    
+      onCloseButtonClick();
+          }
+  if (evt.code === 'ArrowRight') {
+    moveRight();
+  }
+  if (evt.code === 'ArrowLeft') {
+    moveLeft();
+  }
 };
 
+function moveRight() {
+  let indexImage = 0;
+  let imageSrc = lighboxImage.src;
+  for (let i = 0; i < galleryCard.length; i += 1){
+    if (imageSrc === galleryCard[i].original) {
+    indexImage =  i;
+      break;
+    }
+
+  }
+  let  nextImageIndex = indexImage + 1;
+  if (indexImage === galleryCard.length-1) {
+    nextImageIndex = 0;
+  }
+  let nextImaget = galleryCard[nextImageIndex] ;
+  lighboxImage.src = nextImaget.original;
+  };
+
+function moveLeft(){
+  let indexImage = 0;
+  let imageSrc = lighboxImage.src;
+  for (let i = 0; i < galleryCard.length; i += 1){
+    if (imageSrc === galleryCard[i].original) {
+      indexImage = i;
+      break;
+    }
+    }
+     let  nextImageIndex = indexImage - 1;
+  if (indexImage === 0) {
+    nextImageIndex = galleryCard.length-1;
+  }
+  let nextImaget = galleryCard[nextImageIndex] ;
+  lighboxImage.src = nextImaget.original;
+};
